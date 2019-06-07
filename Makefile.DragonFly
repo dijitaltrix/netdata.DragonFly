@@ -1,0 +1,14 @@
+dfly-patch:
+	${REINPLACE_CMD} \
+		-e 's@\(#if !defined(__FreeBSD__)\)@\1 \&\& !defined(__DragonFly__)@g'				\
+		-e 's@\( defined(__FreeBSD__)\)@\1 || defined(__DragonFly__)@g'						\
+		-e 's@ifdef __FreeBSD__@if defined(__FreeBSD__) || defined(__DragonFly__)@g'		\
+		-e 's@ifndef __FreeBSD__@if !defined(__FreeBSD__) \&\& !defined(__DragonFly__)@g'	\
+		${WRKSRC}/collectors/apps.plugin/apps_plugin.c				\
+		${WRKSRC}/daemon/global_statistics.c						\
+		${WRKSRC}/libnetdata/libnetdata.c							\
+		${WRKSRC}/libnetdata/libnetdata.h							\
+		${WRKSRC}/libnetdata/os.c									\
+		${WRKSRC}/libnetdata/log/log.c								\
+		${WRKSRC}/libnetdata/socket/socket.c						\
+		${WRKSRC}/libnetdata/threads/threads.c
