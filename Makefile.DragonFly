@@ -8,6 +8,10 @@ dfly-patch:
 		${WRKSRC}/src/apps_plugin.c				\
 		${WRKSRC}/src/common.c					\
 		${WRKSRC}/src/common.h					\
+		${WRKSRC}/src/freebsd_getifaddrs.c		\
+		${WRKSRC}/src/freebsd_ipfw.c			\
+		${WRKSRC}/src/freebsd_sysctl.c			\
 		${WRKSRC}/src/global_statistics.c		\
 		${WRKSRC}/src/main.c					\
-		${WRKSRC}/src/threads.c								
+		${WRKSRC}/src/threads.c					\								
+		${WRKSRC}/src/zfs_common.c								
