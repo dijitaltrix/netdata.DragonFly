@@ -1,0 +1,25 @@
+#!/bin/sh
+FILES="collectors/apps.plugin/apps_plugin.c daemon/global_statistics.c libnetdata/libnetdata.c libnetdata/libnetdata.h libnetdata/os.c libnetdata/log/log.c libnetdata/socket/socket.c libnetdata/threads/threads.c"
+
+for FILE in $FILES
+do
+	OUT=${FILE//_/__}
+	OUT=${OUT////_}
+	sed \
+		-e 's@#ifdef __FreeBSD__@#if (defined(__DragonFly__) || defined(__FreeBSD__))@g' \
+		-e 's@#ifndef __FreeBSD__@#if (!defined(__DragonFly__) || !defined(__FreeBSD__))@g' \
+		-e 's@#if !(defined(__FreeBSD__) || defined(__APPLE__))@#if (!(defined(__FreeBSD__) || !(defined(__DragonFly__)) || defined(__APPLE__))@g' \
+		-e 's@#if defined(__FreeBSD__)@#if (defined(__FreeBSD__) || defined(__DragonFly__))@g' \
+		-e 's@#if defined(__APPLE__) || defined(__FreeBSD__)@#if (defined(__APPLE__) || defined(__DragonFly__) || defined(__FreeBSD__))@g' \
+		-e 's@#if defined(__FreeBSD__) || defined(__APPLE__)@#if (defined(__APPLE__) || defined(__DragonFly__) || defined(__FreeBSD__))@g' \
+		-e 's@#if defined(__APPLE__) || defined(__FreeBSD__)@#if (defined(__APPLE__) || defined(__DragonFly__) || defined(__FreeBSD__))@g' \
+		-e 's@#if !(defined(__FreeBSD__)) || defined(__APPLE__)@#if (defined(__APPLE__) || !defined(__DragonFly__) || !defined(__FreeBSD__))@g' \
+		-e 's@#elif __FreeBSD__@#elif (__FreeBSD__ || __DragonFly__)@g' \
+		-e 's@#endif // !__FreeBSD__@#endif // !__DragonFly__, !__FreeBSD__@g' \
+		-e 's@#endif /* !__FreeBSD__ */@#endif /* !__DragonFly__ || !__FreeBSD__ */@g' \
+		-e 's@#endif /* __FreeBSD__ || __APPLE__ */@#endif /* __APPLE__ || __DragonFly__ || __FreeBSD__ */@g' \
+		-e 's@#endif /* __APPLE__ || __FreeBSD__ */@#endif /* __APPLE__ || __DragonFly__ || __FreeBSD__ */@g' \
+		-e 's@#endif /* __FreeBSD__, __APPLE__ */@#endif /* __APPLE__, __DragonFly__, __FreeBSD__ */@g' \
+		-e 's@#endif /* __APPLE__, __FreeBSD__ */@#endif /* __APPLE__, __DragonFly__, __FreeBSD__ */@g' \
+		/usr/obj/dports/net-mgmt/netdata/netdata-1.15.0/$FILE | diff -u $FILE - > /usr/dports/net-mgmt/netdata/dragonfly/patch-$OUT 
+done
