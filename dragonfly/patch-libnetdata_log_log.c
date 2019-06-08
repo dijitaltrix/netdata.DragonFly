@@ -1,11 +1,11 @@
 --- libnetdata/log/log.c	2019-05-22 17:46:15.000000000 +0100
-+++ -	2019-06-08 11:51:36.000000000 +0100
++++ -	2019-06-08 12:07:07.000000000 +0100
 @@ -31,7 +31,7 @@
  
  #define LOG_AUTH_KEY "auth"
  #define LOG_AUTHPRIV_KEY "authpriv"
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  # define LOG_CONSOLE_KEY "console"
  #endif
  #define LOG_CRON_KEY "cron"
@@ -14,7 +14,7 @@
  #endif
  #define LOG_NEWS_KEY "news"
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  # define LOG_NTP_KEY "ntp"
  #endif
  #define LOG_SECURITY_KEY "security"
@@ -23,7 +23,7 @@
  		hash_auth = 0,
  		hash_authpriv = 0,
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  		hash_console = 0,
  #endif
  		hash_cron = 0,
@@ -32,7 +32,7 @@
  #endif
  		hash_news = 0,
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  		hash_ntp = 0,
  #endif
  		hash_security = 0,
@@ -41,7 +41,7 @@
  		hash_auth = simple_hash(LOG_AUTH_KEY);
  		hash_authpriv = simple_hash(LOG_AUTHPRIV_KEY);
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  		hash_console = simple_hash(LOG_CONSOLE_KEY);
  #endif
  		hash_cron = simple_hash(LOG_CRON_KEY);
@@ -50,7 +50,7 @@
  #endif
  		hash_news = simple_hash(LOG_NEWS_KEY);
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  		hash_ntp = simple_hash(LOG_NTP_KEY);
  #endif
  		hash_security = simple_hash(LOG_SECURITY_KEY);
@@ -59,7 +59,7 @@
  		return LOG_AUTHPRIV;
  	}
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  	else if ( hash == hash_console )
  	{
  		return LOG_CONSOLE;
@@ -68,7 +68,7 @@
  		return LOG_NEWS;
  	}
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  	else if ( hash == hash_ntp )
  	{
  		return LOG_NTP;
@@ -77,7 +77,7 @@
  		//this facility deprecated. We are keeping
  		//it for other OS while they are kept in their headers.
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  		return LOG_SECURITY;
  #else
  		return LOG_AUTH;
@@ -86,7 +86,7 @@
  				return "authpriv";
  			}
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  		case LOG_CONSOLE:
  			{
  				return "console";
@@ -95,7 +95,7 @@
  				return "news";
  			}
 -#ifdef __FreeBSD__
-+#if defined(__DragonFly__) || defined(__FreeBSD__)
++#if (defined(__DragonFly__) || defined(__FreeBSD__))
  		case LOG_NTP:
  			{
  				return "ntp" ;
