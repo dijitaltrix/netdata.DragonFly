@@ -19,7 +19,9 @@
  #include <time.h>
  #include <unistd.h>
 -#include <uuid/uuid.h>
-+//#include <uuid/uuid.h>
++#if !defined(__DragonFly__)
++#include <uuid/uuid.h>
++#endif
  
  #ifdef HAVE_NETINET_IN_H
  #include <netinet/in.h>
