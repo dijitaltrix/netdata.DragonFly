@@ -8,4 +8,13 @@
 +#if (defined(__DragonFly__) || defined(__FreeBSD__))
  
      return (pid_t)pthread_getthreadid_np();
- 
+
+@@ -44,7 +44,7 @@
+
+     return (pid_t)syscall(SYS_gettid);
+
+-#endif /* __FreeBSD__, __APPLE__*/
++#endif /* __APPLE__, __DragonFly__, __FreeBSD__*/
+}
+
+// ----------------------------------------------------------------------------

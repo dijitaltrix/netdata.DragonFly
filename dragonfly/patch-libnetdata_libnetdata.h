@@ -18,3 +18,13 @@
  #include <pthread_np.h>
  #define NETDATA_OS_TYPE "freebsd"
  #elif defined(__APPLE__)
+
+@@ -80,7 +84,7 @@
+ #include <sys/un.h>
+ #include <time.h>
+ #include <unistd.h>
+-#include <uuid/uuid.h>
++//#include <uuid/uuid.h>
+
+ #ifdef HAVE_NETINET_IN_H
+ #include <netinet/in.h>
