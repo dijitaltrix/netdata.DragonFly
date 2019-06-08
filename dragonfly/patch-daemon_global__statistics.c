@@ -1,5 +1,5 @@
---- daemon/global_statistics.c	2019-05-22 09:46:14.000000000 +0100
-+++ -	2019-06-08 11:07:43.000000000 +0100
+--- daemon/global_statistics.c	2019-05-22 17:46:15.000000000 +0100
++++ -	2019-06-08 11:33:02.000000000 +0100
 @@ -192,7 +192,7 @@
          static RRDDIM *rd_cpu_thread_user = NULL,
                        *rd_cpu_thread_system = NULL;
